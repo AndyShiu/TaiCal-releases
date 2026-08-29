@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://taical.andyshiu.com/sitemap.xml

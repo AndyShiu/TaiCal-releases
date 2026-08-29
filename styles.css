@@ -240,7 +240,7 @@ p { text-wrap: pretty; }
   border-radius: 12px; display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 20px;
 }
-.feature h3 { margin: 6px 0 0; font-size: 24px; font-weight: 800; }
+.feature h2 { margin: 6px 0 0; font-size: 24px; font-weight: 800; }
 .feature p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); max-width: 640px; }
 
 /* 特色底下的補充說明：比主要說明再退一階 */
@@ -347,7 +347,7 @@ p { text-wrap: pretty; }
   margin-top: 72px; display: grid; grid-template-columns: 340px 1fr;
   gap: 40px; align-items: center;
 }
-.wallpaper-copy h3 { margin: 0; font-size: 24px; font-weight: 800; }
+.wallpaper-copy h2 { margin: 0; font-size: 24px; font-weight: 800; }
 .wallpaper-copy p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); }
 
 .wallpaper-demo {
@@ -463,7 +463,7 @@ p { text-wrap: pretty; }
   gap: 44px; align-items: center; max-width: 980px;
   width: calc(100% - 48px);
 }
-.lunar-band h3 { margin: 0; font-size: 24px; font-weight: 800; }
+.lunar-band h2 { margin: 0; font-size: 24px; font-weight: 800; }
 .lunar-band p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); }
 
 /* 三欄卡片 */
@@ -549,7 +549,7 @@ p { text-wrap: pretty; }
   .features { padding: 44px 20px 0; gap: 40px; }
   .feature { grid-template-columns: 40px 1fr; gap: 16px; }
   .feature-num { width: 34px; height: 34px; font-size: 16px; border-radius: 10px; }
-  .feature h3 { font-size: 20px; }
+  .feature h2 { font-size: 20px; }
   .feature p { font-size: 15px; }
 
   .lunar-band { margin: 44px auto 0; width: calc(100% - 40px); }

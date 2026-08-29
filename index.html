@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" data-theme="light">
+<html lang="zh-Hant-TW" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>呆丸月曆 — macOS 桌面小工具</title>
-<meta name="description" content="桌面上的台灣月曆，標好國定假日與農曆，順便提醒你今天有什麼事。macOS 內建的月曆小工具不標台灣國定假日，這個會。">
+<title>呆丸月曆 — 標台灣國定假日的 macOS 桌面月曆小工具</title>
+<meta name="description" content="免費的 macOS 桌面月曆小工具，標好台灣國定假日、補班日與農曆，還能顯示 Mac 行事曆的行程。假日資料取自人事行政總處公告的辦公日曆表，支援 macOS 14 以上。">
+<meta name="keywords" content="macOS 月曆小工具, 台灣國定假日, 桌面小工具, 農曆, 補班日, Mac 行事曆, 辦公日曆表">
+<link rel="canonical" href="https://taical.andyshiu.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#C24A3B">
 <link rel="icon" href="assets/icon-256.png">
 <link rel="apple-touch-icon" href="assets/icon.png">
 <link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://api.github.com">
 
 <script>
   /* 在樣式套用前就決定主題，避免載入時先閃一下淺色再跳深色。
@@ -21,10 +25,49 @@
 </script>
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="呆丸月曆 — macOS 桌面小工具">
-<meta property="og:description" content="桌面上的台灣月曆，標好國定假日與農曆，順便提醒你今天有什麼事。">
-<meta property="og:image" content="assets/icon.png">
-<meta name="twitter:card" content="summary">
+<meta property="og:site_name" content="呆丸月曆">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:url" content="https://taical.andyshiu.com/">
+<meta property="og:title" content="呆丸月曆 — 標台灣國定假日的 macOS 桌面月曆小工具">
+<meta property="og:description" content="桌面上的台灣月曆，標好國定假日、補班日與農曆，順便提醒你今天有什麼事。免費、開源、已通過 Apple 公證。">
+<!-- 分享圖必須是絕對網址，相對路徑各家平台抓不到 -->
+<meta property="og:image" content="https://taical.andyshiu.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="呆丸月曆的桌面小工具，月曆上標著中秋節與教師節">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="呆丸月曆 — 標台灣國定假日的 macOS 桌面月曆小工具">
+<meta name="twitter:description" content="桌面上的台灣月曆，標好國定假日、補班日與農曆。免費、開源、已通過 Apple 公證。">
+<meta name="twitter:image" content="https://taical.andyshiu.com/assets/og.png">
+
+<!-- 結構化資料：讓搜尋結果能顯示應用程式的作業系統、價格與分類 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "呆丸月曆",
+  "alternateName": "TaiCal",
+  "applicationCategory": "UtilitiesApplication",
+  "applicationSubCategory": "桌面小工具",
+  "operatingSystem": "macOS 14.0 或以上",
+  "url": "https://taical.andyshiu.com/",
+  "downloadUrl": "https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.zip",
+  "softwareVersion": "1.0",
+  "inLanguage": "zh-Hant",
+  "description": "免費的 macOS 桌面月曆小工具，標好台灣國定假日、補班日與農曆，並可顯示 Mac 行事曆的行程。假日資料取自行政院人事行政總處公告的辦公日曆表。",
+  "image": "https://taical.andyshiu.com/assets/og.png",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "TWD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "AndyShiu",
+    "url": "https://github.com/AndyShiu"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -104,7 +147,7 @@
     <div class="feature">
       <div class="feature-num">1</div>
       <div>
-        <h3>台灣國定假日，用官方資料</h3>
+        <h2>台灣國定假日，用官方資料</h2>
         <p>假日紅字來自行政院人事行政總處公告的「政府行政機關辦公日曆表」，不是自己推算的。連假的補假、補班日都跟官方一致。</p>
         <div class="chips">
           <span class="chip chip-warm">涵蓋 2017–2027 年</span>
@@ -116,7 +159,7 @@
     <div class="feature">
       <div class="feature-num">2</div>
       <div>
-        <h3>在桌面上直接操作，不用開 App</h3>
+        <h2>在桌面上直接操作，不用開 App</h2>
         <p>多數月曆小工具只是靜態顯示，這個可以動。</p>
         <div class="chips">
           <span class="chip">點 ◀ ▶ 直接翻月</span>
@@ -130,7 +173,7 @@
     <div class="feature">
       <div class="feature-num">3</div>
       <div>
-        <h3>接上你原本的行事曆</h3>
+        <h2>接上你原本的行事曆</h2>
         <p>授權之後，小工具會讀 Mac「行事曆」App 裡的行程——iCloud、Google、公司的 Exchange，只要「行事曆」看得到的都算。有事的日子下面會出現圓點，點下去右側就列出當天的行程。</p>
         <p class="feature-note">哪些行事曆要顯示由你逐一勾選：工作的行事曆想關掉就關掉，訂閱的球賽賽程不想擠進來也可以不勾。資料只在你自己的電腦上讀取，不會送到任何地方。</p>
 
@@ -201,7 +244,7 @@
     <div class="feature">
       <div class="feature-num">4</div>
       <div>
-        <h3>外觀完全可調</h3>
+        <h2>外觀完全可調</h2>
         <p>背景、日期、「今天」圓圈、事件圓點、假日、農曆——六種顏色都能改，背景和圓點還能各自調不透明度。淺色深色各一套，設定時即時預覽。</p>
 
         <div class="showcase" id="palette-showcase">
@@ -241,7 +284,7 @@
 
   <section class="wallpaper-band wrap" id="wallpaper-band">
     <div class="wallpaper-copy">
-      <h3>也可以放自己的照片</h3>
+      <h2>也可以放自己的照片</h2>
       <p>照片是鋪在小工具裡面的，不是換桌布——右邊這兩張是作者家的狗和貓。再用遮罩的不透明度調整濃淡：濃一點文字更清楚，淡一點照片更明顯。設定畫面即時預覽，不必存檔後跑去桌面看。</p>
       <div class="chips">
         <span class="chip">自訂背景圖</span>
@@ -297,7 +340,7 @@
 
   <section class="lunar-band">
     <div>
-      <h3>農曆就在日期下面</h3>
+      <h2>農曆就在日期下面</h2>
       <p>初一顯示月份（正月、八月），其他日子顯示農曆日（初五、十五、廿三）。不需要的話，可以整個關掉。</p>
     </div>
     <div class="widget widget-md lunar-widget">
@@ -322,15 +365,15 @@
 
   <section class="cards wrap">
     <div class="card">
-      <h4>顯示你的行事曆</h4>
+      <h3>顯示你的行事曆</h3>
       <p>有行程的日子標上小圓點，中型尺寸列出近期事項。想顯示哪些行事曆來源，自己勾選——工作帳號不想出現在桌面上就取消。</p>
     </div>
     <div class="card">
-      <h4>資料不離開你的電腦</h4>
+      <h3>資料不離開你的電腦</h3>
       <p>行事曆內容只在本機運算，不上傳任何地方。唯一的對外連線是檢查更新與假日資料。</p>
     </div>
     <div class="card">
-      <h4>更新不麻煩</h4>
+      <h3>更新不麻煩</h3>
       <p>App 內直接安裝新版本；假日資料在新年度公告後自動更新，裝一次就好。</p>
     </div>
   </section>
