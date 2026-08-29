@@ -84,7 +84,9 @@ p { text-wrap: pretty; }
 .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
 .nav-brand img { width: 28px; height: 28px; }
 .nav-links { display: flex; align-items: center; gap: 22px; font-size: 14px; }
-.nav-links a { color: var(--ink-soft); }
+/* 排除 .btn：否則這條規則的特異性（0,1,1）會蓋過 .btn（0,1,0），
+   讓下載按鈕拿到深灰文字色而不是按鈕該有的米白。 */
+.nav-links a:not(.btn) { color: var(--ink-soft); }
 .nav-links a.gh { color: var(--indigo); }
 
 .btn {

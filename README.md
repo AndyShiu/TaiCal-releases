@@ -1,6 +1,6 @@
 # 官網
 
-`https://andyshiu.github.io/TaiCal-releases/` 的原始碼（預定）。
+**https://taical.andyshiu.com** 的原始碼。
 
 純靜態網站，沒有建置步驟——直接開 `index.html` 即可預覽。
 
@@ -52,17 +52,19 @@ python3 -m http.server 8000 --directory web
 - 月曆格線的顏色由 `calendar.js` 給，切換後必須重新產生，
   否則背景變深了、格線文字卻還是深棕色
 
-## 部署到 GitHub Pages
+## 部署
 
-網站與安裝檔在同一個 repo（`AndyShiu/TaiCal-releases`），有兩種做法：
+網站放在 `AndyShiu/TaiCal-releases` 的 **`gh-pages` 分支**，
+與 `main` 上的安裝檔、假日資料分開。
 
-**做法一：把 `web/` 的內容推到該 repo 的根目錄或 `docs/`**
-在 repo 的 Settings → Pages 選擇來源分支與目錄即可。
+更新網站時，把 `web/` 的內容推上該分支：
 
-**做法二：推到 `gh-pages` 分支**
-適合想讓網站原始碼與安裝檔分開的情況。
+```bash
+./scripts/publish_website.sh
+```
 
-網址會是 `https://andyshiu.github.io/TaiCal-releases/`。
+`gh-pages` 是孤立分支（orphan），不含 `main` 的歷史——
+它的內容與安裝檔無關，混在一起只會讓兩邊的紀錄互相干擾。
 
 ### 自訂網域
 
