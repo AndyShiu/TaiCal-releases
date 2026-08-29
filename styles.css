@@ -51,6 +51,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* 自訂的 display 會蓋過 hidden 屬性的預設樣式，明確補上 */
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   /* 只轉場背景。文字若也加轉場，切換瞬間會出現深底配淺字的中間狀態，
@@ -98,6 +101,11 @@ p { text-wrap: pretty; }
 .btn-lg {
   padding: 15px 40px; border-radius: 13px; font-size: 17px; font-weight: 800;
   box-shadow: 0 8px 20px rgba(194, 74, 59, .3);
+}
+/* 版本號附在按鈕上，字重與透明度都降一階，不與「免費下載」搶主體 */
+.btn-version {
+  font-weight: 600; font-size: .88em; opacity: .78;
+  font-variant-numeric: tabular-nums; margin-left: 2px;
 }
 
 /* 深淺色切換 */
@@ -205,6 +213,9 @@ p { text-wrap: pretty; }
 .feature h3 { margin: 6px 0 0; font-size: 24px; font-weight: 800; }
 .feature p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); max-width: 640px; }
 
+/* 特色底下的補充說明：比主要說明再退一階 */
+.feature-note { font-size: 14.5px; color: var(--ink-soft); opacity: .82; }
+
 .chips { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
 .chip {
   font-size: 13px; padding: 6px 14px; border-radius: 999px;
@@ -212,32 +223,211 @@ p { text-wrap: pretty; }
 }
 .chip-warm { background: var(--chip-warm); color: var(--brick-soft); font-weight: 700; }
 
-/* 配色預設集 */
-.presets { display: flex; gap: 22px; margin-top: 22px; align-items: flex-start; flex-wrap: wrap; }
-.preset { text-align: center; }
-.preset-frame {
-  width: 120px; border-radius: 12px; padding: 7px 6px 5px;
-  box-shadow: 0 8px 20px rgba(40, 32, 20, .12);
+/* 配色輪播示範 */
+/* 設定畫面裡的「自訂顏色」面板示意。
+ *
+ * 用 HTML 畫而不是放截圖：這樣淺色深色兩種主題下都看得清楚，
+ * 也不會因為 App 改版就變成一張過期的圖。面板本身固定深色，
+ * 因為 App 的設定畫面在深色模式下就長這樣。
+ */
+.prefs {
+  flex: 1 1 240px; min-width: 0; max-width: 300px;
+  align-self: stretch;
+  background: #1F1F21; border-radius: 12px; padding: 12px 13px 14px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .07), 0 10px 26px rgba(40, 26, 12, .18);
+  font-size: 11.5px; line-height: 1.4;
 }
-.preset-label { font-size: 12px; color: var(--ink-faint); margin-top: 8px; font-weight: 600; }
-.preset-system   { background: #FFFFFF; }
-.preset-graphite { background: #232120; }
-.preset-ricePaper{ background: #F8F1DF; }
-.preset-minimal  { background: #FFFFFF; border: 1px solid #E3E0D8; }
-.preset-frosted-outer {
-  width: 132px; background: linear-gradient(135deg, #8FA6BE, #63798F);
-  border-radius: 14px; padding: 6px;
+.prefs-title { color: rgba(255, 255, 255, .58); margin-bottom: 9px; font-size: 11px; }
+.prefs-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-top: 1px solid rgba(255, 255, 255, .07);
 }
-.preset-frosted-inner {
-  background: rgba(255, 255, 255, .24); backdrop-filter: blur(6px);
-  border-radius: 10px; padding: 6px 5px 4px;
+.prefs-row:first-of-type { border-top: 0; }
+.prefs-label { color: #E8E8EA; white-space: nowrap; }
+.prefs-code {
+  margin-left: auto; color: rgba(255, 255, 255, .45);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
 }
+.prefs-swatch {
+  width: 34px; height: 15px; border-radius: 8px; flex: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .22) inset;
+}
+/* 滑桿：軌道 + 已填滿的部分 + 圓鈕，對應 App 裡的不透明度 */
+.prefs-row-slider .prefs-label { color: rgba(255, 255, 255, .72); }
+.prefs-track {
+  position: relative; flex: 1 1 auto; height: 3px; border-radius: 99px;
+  background: rgba(255, 255, 255, .18); margin-left: 4px;
+}
+.prefs-fill { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: #0A66E8; }
+.prefs-knob {
+  position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%;
+  background: #C8C8CC; transform: translate(-50%, -50%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+}
+.prefs-pct {
+  flex: none; width: 30px; text-align: right; font-style: normal;
+  color: rgba(255, 255, 255, .55);
+}
+
+.showcase {
+  display: flex; align-items: center; gap: 26px;
+  margin-top: 24px; flex-wrap: wrap;
+}
+.showcase-widget {
+  padding: 26px 30px; border-radius: 18px; flex: none;
+  /* 用偏深的示意桌布：霧面是半透明白底配白字，設計給深色桌布，
+     放在淺色台上白字會整個消失。深底則五組配色都看得清楚。 */
+  background:
+    radial-gradient(120% 100% at 25% 15%, #6E5B7B 0%, transparent 60%),
+    radial-gradient(100% 90% at 80% 80%, #3B5A72 0%, transparent 55%),
+    linear-gradient(150deg, #2E3440 0%, #4A4054 55%, #5C4A52 100%);
+}
+/* 換配色時底色與外框跟著變，因此不吃 .widget 的預設底色 */
+.showcase-frame {
+  background: #FFFFFF; transition: background-color .45s ease, box-shadow .45s ease;
+}
+.showcase-system    { background: #FFFFFF; }
+.showcase-graphite  { background: #232120; }
+.showcase-ricePaper { background: #F8F1DF; }
+.showcase-minimal   { background: #FFFFFF; box-shadow: 0 0 0 1px #E3E0D8 inset, 0 16px 36px rgba(50,30,10,.24); }
+.showcase-frosted {
+  background: rgba(255, 255, 255, .26); backdrop-filter: blur(8px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.35) inset, 0 16px 36px rgba(50,30,10,.28);
+}
+/* 霧面與石墨的標題列在深底上要換色，否則磚紅字會看不清 */
+.showcase-frosted .widget-head .month,
+.showcase-graphite .widget-head .month { color: #F0D9C4; }
+.showcase-frosted .widget-head .arrow,
+.showcase-graphite .widget-head .arrow { color: rgba(255,255,255,.5); }
+
+.showcase-labels { display: flex; flex-direction: column; gap: 4px; }
+.showcase-label {
+  background: none; border: 0; padding: 6px 12px; border-radius: 8px;
+  font: inherit; font-size: 14px; color: var(--ink-faint);
+  cursor: pointer; text-align: left; transition: color .2s, background-color .2s;
+}
+.showcase-label:hover { color: var(--ink-soft); background: var(--chip-plain); }
+.showcase-label.is-active {
+  color: var(--brick-soft); background: var(--chip-warm); font-weight: 700;
+}
+.showcase-label:focus-visible { outline: 2px solid var(--brick); outline-offset: 1px; }
+
+/* 背景圖展示 */
+.wallpaper-band {
+  margin-top: 72px; display: grid; grid-template-columns: 340px 1fr;
+  gap: 40px; align-items: center;
+}
+.wallpaper-copy h3 { margin: 0; font-size: 24px; font-weight: 800; }
+.wallpaper-copy p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); }
+
+.wallpaper-demo {
+  position: relative; border-radius: 20px; overflow: hidden;
+  padding: 30px 26px 42px; display: flex; flex-direction: column;
+  align-items: center; gap: 14px;
+}
+/* 小的往左偏，兩個錯開才像散落在桌面上，而不是置中對齊的示意圖 */
+.wallpaper-sm { align-self: center; margin-left: -150px; }
+/* 行事曆來源勾選示意。
+ *
+ * 與「自訂顏色」面板同一套深色卡片樣式——兩者在 App 裡本來就是同一個設定畫面。
+ */
+.cal-showcase { align-items: flex-start; }
+.cal-demo-widget { width: 320px; flex: none; }
+.sources {
+  flex: 1 1 250px; min-width: 0; max-width: 300px;
+  background: #1F1F21; border-radius: 12px; padding: 12px 13px 10px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .07), 0 10px 26px rgba(40, 26, 12, .18);
+  font-size: 11.5px; line-height: 1.4;
+}
+.sources-title { color: rgba(255, 255, 255, .58); margin-bottom: 8px; font-size: 11px; }
+.src {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 0; border-top: 1px solid rgba(255, 255, 255, .07);
+}
+.src:first-of-type { border-top: 0; }
+.src-box {
+  width: 14px; height: 14px; border-radius: 4px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: #FFFFFF; line-height: 1;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .28) inset;
+}
+.src.is-on .src-box { background: #0A66E8; box-shadow: none; }
+.src-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.src-name { color: rgba(255, 255, 255, .45); }
+.src.is-on .src-name { color: #E8E8EA; }
+.src-kind {
+  margin-left: auto; color: rgba(255, 255, 255, .34); font-size: 10.5px;
+  white-space: nowrap;
+}
+
+/* 背景圖示意。
+ *
+ * 照片鋪在小工具「裡面」，不是換桌布——這是這個功能真正的樣子。
+ * 照片上再壓一層白色遮罩把它沖淡，所以日期維持深色也讀得清楚；
+ * 遮罩濃淡在 App 裡可調，這裡取一個中間值。
+ */
+.wallpaper-desk {
+  position: absolute; inset: 0;
+  /* 示意用的桌布，刻意做得柔和，不跟小工具搶注意力 */
+  background:
+    radial-gradient(58% 66% at 20% 20%, rgba(255, 252, 244, .55) 0%, transparent 62%),
+    radial-gradient(52% 62% at 84% 80%, rgba(206, 138, 106, .42) 0%, transparent 66%),
+    linear-gradient(150deg, #E4D6C3 0%, #D4BEA8 38%, #BE9E88 72%, #A88670 100%);
+}
+
+.widget-photos {
+  position: absolute; inset: 0; z-index: 0;
+  border-radius: inherit; overflow: hidden;
+}
+.widget-photo {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity .9s ease;
+}
+.widget-photo.is-active { opacity: 1; }
+/* 沖淡照片的遮罩，疊在所有照片之上 */
+.widget-photos::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255, 255, 255, .58);
+}
+
+/* 輪播指示點 */
+.wallpaper-dots {
+  position: absolute; left: 50%; bottom: 13px; transform: translateX(-50%);
+  z-index: 3; display: flex; gap: 7px;
+}
+.wallpaper-dots button {
+  width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px;
+  background: rgba(255, 255, 255, .55); cursor: pointer;
+  box-shadow: 0 1px 3px rgba(40, 40, 20, .35);
+  transition: width .25s ease, background .25s ease;
+}
+.wallpaper-dots button:hover { background: rgba(255, 255, 255, .8); }
+.wallpaper-dots button.is-active { width: 20px; background: #FFFFFF; }
+.wallpaper-dots button:focus-visible { outline: 2px solid #FFF; outline-offset: 2px; }
+
+.wallpaper-widget {
+  position: relative; z-index: 2;
+  /* 底色留給照片，這裡只補一層白避免照片沒載入時是透明的 */
+  background: rgba(255, 255, 255, .9);
+  box-shadow: 0 0 0 .5px rgba(255, 255, 255, .5) inset,
+              0 14px 32px rgba(40, 46, 24, .28);
+}
+/* 內容要疊在照片之上 */
+.wallpaper-widget > .widget-main,
+.wallpaper-widget > .widget-side,
+.wallpaper-widget > .widget-head,
+.wallpaper-widget > [data-calendar] { position: relative; z-index: 1; }
+.wallpaper-widget .widget-side { border-left-color: rgba(60, 50, 40, .18); }
+
 
 /* 農曆區塊 */
 .lunar-band {
-  margin: 72px 24px 0; background: var(--paper-sunken); border-radius: 22px;
+  /* 左右 auto：有 max-width 卻用固定的左右邊距，區塊會貼在左側而非置中 */
+  margin: 72px auto 0; background: var(--paper-sunken); border-radius: 22px;
   padding: 44px 52px; display: grid; grid-template-columns: 1fr 380px;
   gap: 44px; align-items: center; max-width: 980px;
+  width: calc(100% - 48px);
 }
 .lunar-band h3 { margin: 0; font-size: 24px; font-weight: 800; }
 .lunar-band p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); }
@@ -278,9 +468,28 @@ p { text-wrap: pretty; }
   line-height: 1.7; text-align: right;
 }
 
+/* ---------- 進場動畫 ---------- */
+
+/* 由 scroll.js 在區塊進入畫面時加上 is-revealed。
+   偏好減少動態時，scroll.js 會直接標記為已顯示，不套用轉場。 */
+.reveal {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .55s ease, transform .55s cubic-bezier(.22, .8, .3, 1);
+}
+.reveal.is-revealed { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .showcase-frame { transition: none; }
+  .widget-photo { transition: none; }
+  body { transition: none; }
+}
+
 /* ---------- 響應式 ---------- */
 
 @media (max-width: 900px) {
+  .wallpaper-band { grid-template-columns: 1fr; gap: 28px; }
+  .wallpaper-demo { padding: 24px 18px; }
   .lunar-band { grid-template-columns: 1fr; padding: 32px 24px; }
   .cards { grid-template-columns: 1fr; }
   .steps { grid-template-columns: repeat(2, 1fr); }
@@ -309,7 +518,11 @@ p { text-wrap: pretty; }
   .feature h3 { font-size: 20px; }
   .feature p { font-size: 15px; }
 
-  .lunar-band { margin: 44px 20px 0; }
+  .lunar-band { margin: 44px auto 0; width: calc(100% - 40px); }
+  .showcase { gap: 20px; }
+  .showcase-labels { flex-direction: row; flex-wrap: wrap; }
+  .prefs, .sources { max-width: none; flex-basis: 100%; }
+  .wallpaper-band { margin-top: 44px; }
   .steps { grid-template-columns: 1fr; }
   .install { padding: 44px 20px 48px; }
   .install h2 { font-size: 24px; }

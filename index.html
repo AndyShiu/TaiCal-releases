@@ -44,7 +44,7 @@
       <span class="icon-light" aria-hidden="true">☾</span>
       <span class="icon-dark" aria-hidden="true">☀</span>
     </button>
-    <a class="btn" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest">下載</a>
+    <a class="btn" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.zip">下載</a>
   </div>
 </nav>
 
@@ -55,9 +55,15 @@
   <p class="hero-sub">macOS 內建的月曆小工具不標台灣國定假日。哪天放假、要不要補班——瞥一眼桌面就知道。</p>
 
   <div class="hero-cta">
-    <a class="btn btn-lg" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest">免費下載</a>
+    <a class="btn btn-lg" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.zip">
+        免費下載 <span class="btn-version" data-latest-version>1.0</span>
+      </a>
   </div>
-  <div class="meta">macOS 14.0 以上 · 約 2 MB · 已通過 Apple 公證，下載後可直接開啟</div>
+  <div class="meta">
+    版本 <span data-latest-version>1.0</span> ·
+    macOS 14.0 以上 · 約 <span data-download-size>2</span> MB ·
+    已通過 Apple 公證，下載後可直接開啟
+  </div>
 
   <div class="stage">
     <div class="widget widget-md">
@@ -121,42 +127,167 @@
     <div class="feature">
       <div class="feature-num">3</div>
       <div>
-        <h3>外觀完全可調</h3>
-        <p>背景、日期、「今天」圓圈、事件圓點、假日、農曆——六種顏色都能改。背景可調透明度、放自己的照片，淺色深色各一套，設定時即時預覽。五組現成配色：</p>
-        <div class="presets">
-          <div class="preset">
-            <div class="preset-frame preset-system">
-              <div data-calendar="system" data-cell-height="15" data-font-size="8.5" data-weekdays="false"></div>
+        <h3>接上你原本的行事曆</h3>
+        <p>授權之後，小工具會讀 Mac「行事曆」App 裡的行程——iCloud、Google、公司的 Exchange，只要「行事曆」看得到的都算。有事的日子下面會出現圓點，點下去右側就列出當天的行程。</p>
+        <p class="feature-note">哪些行事曆要顯示由你逐一勾選：工作的行事曆想關掉就關掉，訂閱的球賽賽程不想擠進來也可以不勾。資料只在你自己的電腦上讀取，不會送到任何地方。</p>
+
+        <div class="showcase cal-showcase">
+          <div class="widget widget-md cal-demo-widget">
+            <div class="widget-main">
+              <div class="widget-head">
+                <span class="arrow">‹</span>
+                <span class="month">2026年9月</span>
+                <span class="today">今天</span>
+                <span class="arrow">›</span>
+              </div>
+              <div data-calendar="ricePaper" data-cell-height="22" data-font-size="11.5" data-selected="23"></div>
             </div>
-            <div class="preset-label">系統</div>
-          </div>
-          <div class="preset">
-            <div class="preset-frame preset-graphite">
-              <div data-calendar="graphite" data-cell-height="15" data-font-size="8.5" data-weekdays="false"></div>
-            </div>
-            <div class="preset-label">石墨</div>
-          </div>
-          <div class="preset">
-            <div class="preset-frame preset-ricePaper">
-              <div data-calendar="ricePaper" data-cell-height="15" data-font-size="8.5" data-weekdays="false"></div>
-            </div>
-            <div class="preset-label">米紙</div>
-          </div>
-          <div class="preset">
-            <div class="preset-frosted-outer">
-              <div class="preset-frosted-inner">
-                <div data-calendar="frosted" data-cell-height="15" data-font-size="8.5" data-weekdays="false"></div>
+            <div class="widget-side">
+              <div class="widget-side-title">9月23日</div>
+              <div class="widget-side-list">
+                <div><span class="date">10:00</span> <span class="name">週會</span></div>
+                <div><span class="date">14:30</span> <span class="name">牙醫</span></div>
+                <div><span class="date">全天</span> <span class="name">爸生日</span></div>
               </div>
             </div>
-            <div class="preset-label">霧面</div>
           </div>
-          <div class="preset">
-            <div class="preset-frame preset-minimal">
-              <div data-calendar="minimal" data-cell-height="15" data-font-size="8.5" data-weekdays="false"></div>
+
+          <div class="sources" aria-hidden="true">
+            <div class="sources-title">顯示的行事曆</div>
+            <div class="src is-on">
+              <span class="src-box">✓</span>
+              <span class="src-dot" style="background: #0A66E8"></span>
+              <span class="src-name">個人</span>
+              <span class="src-kind">iCloud</span>
             </div>
-            <div class="preset-label">極簡</div>
+            <div class="src is-on">
+              <span class="src-box">✓</span>
+              <span class="src-dot" style="background: #3CA84B"></span>
+              <span class="src-name">家庭</span>
+              <span class="src-kind">iCloud</span>
+            </div>
+            <div class="src">
+              <span class="src-box"></span>
+              <span class="src-dot" style="background: #E08A2E"></span>
+              <span class="src-name">工作</span>
+              <span class="src-kind">Exchange</span>
+            </div>
+            <div class="src is-on">
+              <span class="src-box">✓</span>
+              <span class="src-dot" style="background: #E0559A"></span>
+              <span class="src-name">生日</span>
+              <span class="src-kind">系統</span>
+            </div>
+            <div class="src">
+              <span class="src-box"></span>
+              <span class="src-dot" style="background: #8A5BD6"></span>
+              <span class="src-name">中華職棒賽程</span>
+              <span class="src-kind">訂閱</span>
+            </div>
           </div>
         </div>
+        <div class="chips">
+          <span class="chip">逐一勾選要顯示的來源</span>
+          <span class="chip">圓點標示當天有事</span>
+          <span class="chip">點日期看當天行程</span>
+          <span class="chip chip-warm">不授權也能用，只是不顯示行程</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-num">4</div>
+      <div>
+        <h3>外觀完全可調</h3>
+        <p>背景、日期、「今天」圓圈、事件圓點、假日、農曆——六種顏色都能改，背景和圓點還能各自調不透明度。淺色深色各一套，設定時即時預覽。</p>
+
+        <div class="showcase" id="palette-showcase">
+          <div class="showcase-widget">
+            <div class="widget widget-sm showcase-frame" id="showcase-frame">
+              <div class="widget-head">
+                <span class="arrow">‹</span>
+                <span class="month">2026年9月</span>
+                <span class="arrow">›</span>
+              </div>
+              <div id="showcase-cal" data-calendar="ricePaper" data-cell-height="21" data-font-size="11"></div>
+            </div>
+          </div>
+          <div class="showcase-labels" id="showcase-labels">
+            <button type="button" class="showcase-label is-active" data-palette="system">系統</button>
+            <button type="button" class="showcase-label" data-palette="graphite">石墨</button>
+            <button type="button" class="showcase-label" data-palette="ricePaper">米紙</button>
+            <button type="button" class="showcase-label" data-palette="frosted">霧面</button>
+            <button type="button" class="showcase-label" data-palette="minimal">極簡</button>
+          </div>
+        <div class="prefs" aria-hidden="true">
+          <div class="prefs-title">自訂顏色（淺色配色）</div>
+          <div class="prefs-row"><span class="prefs-label">背景色</span><code class="prefs-code">#FFFFFF</code><i class="prefs-swatch" style="background: #FFFFFF"></i></div>
+          <div class="prefs-row prefs-row-slider"><span class="prefs-label">不透明度</span><span class="prefs-track"><span class="prefs-fill" style="width: 55%"></span><span class="prefs-knob" style="left: 55%"></span></span><em class="prefs-pct">55%</em></div>
+          <div class="prefs-row"><span class="prefs-label">日期文字</span><code class="prefs-code">#3A3A3C</code><i class="prefs-swatch" style="background: #3A3A3C"></i></div>
+          <div class="prefs-row"><span class="prefs-label">「今天」圓圈</span><code class="prefs-code">#0A66E8</code><i class="prefs-swatch" style="background: #0A66E8"></i></div>
+          <div class="prefs-row"><span class="prefs-label">事件圓點</span><code class="prefs-code">#E0392E</code><i class="prefs-swatch" style="background: #E0392E"></i></div>
+          <div class="prefs-row prefs-row-slider"><span class="prefs-label">不透明度</span><span class="prefs-track"><span class="prefs-fill" style="width: 85%"></span><span class="prefs-knob" style="left: 85%"></span></span><em class="prefs-pct">85%</em></div>
+          <div class="prefs-row"><span class="prefs-label">假日文字</span><code class="prefs-code">#D0342C</code><i class="prefs-swatch" style="background: #D0342C"></i></div>
+          <div class="prefs-row"><span class="prefs-label">農曆文字</span><code class="prefs-code">#8E8E93</code><i class="prefs-swatch" style="background: #8E8E93"></i></div>
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="wallpaper-band wrap" id="wallpaper-band">
+    <div class="wallpaper-copy">
+      <h3>也可以放自己的照片</h3>
+      <p>照片是鋪在小工具裡面的，不是換桌布——右邊這兩張是作者家的狗和貓。再用遮罩的不透明度調整濃淡：濃一點文字更清楚，淡一點照片更明顯。設定畫面即時預覽，不必存檔後跑去桌面看。</p>
+      <div class="chips">
+        <span class="chip">自訂背景圖</span>
+        <span class="chip">遮罩濃淡可調</span>
+        <span class="chip">即時預覽</span>
+      </div>
+    </div>
+    <div class="wallpaper-demo" id="wallpaper-demo">
+      <div class="wallpaper-desk" aria-hidden="true"></div>
+
+      <div class="widget widget-md wallpaper-widget wallpaper-md">
+        <div class="widget-photos" aria-hidden="true">
+          <div class="widget-photo is-active" style="background-image: url('assets/wallpaper-dog.jpg'); background-position: 74% 42%"></div>
+          <div class="widget-photo" style="background-image: url('assets/wallpaper-cat.jpg'); background-position: 30% 62%"></div>
+        </div>
+        <div class="widget-main">
+          <div class="widget-head">
+            <span class="arrow">‹</span>
+            <span class="month">2026年9月</span>
+            <span class="today">今天</span>
+            <span class="arrow">›</span>
+          </div>
+          <div data-calendar="onPhoto" data-cell-height="24" data-font-size="12"></div>
+        </div>
+        <div class="widget-side">
+          <div class="widget-side-title">2026年9月</div>
+          <div class="widget-side-list">
+            <div><span class="date">9/25</span> <span class="name">中秋節</span></div>
+            <div><span class="date">9/28</span> <span class="name">教師節</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget widget-sm wallpaper-widget wallpaper-sm">
+        <div class="widget-photos" aria-hidden="true">
+          <div class="widget-photo is-active" style="background-image: url('assets/wallpaper-dog.jpg'); background-position: 74% 42%"></div>
+          <div class="widget-photo" style="background-image: url('assets/wallpaper-cat.jpg'); background-position: 30% 62%"></div>
+        </div>
+        <div class="widget-head">
+          <span class="arrow">‹</span>
+          <span class="month">2026年9月</span>
+          <span class="arrow">›</span>
+        </div>
+        <div data-calendar="onPhoto" data-cell-height="20" data-font-size="10.5"></div>
+      </div>
+
+      <div class="wallpaper-dots" id="wallpaper-dots">
+        <button type="button" class="is-active" aria-label="換成第 1 張照片"></button>
+        <button type="button" aria-label="換成第 2 張照片"></button>
       </div>
     </div>
   </section>
@@ -228,9 +359,15 @@
   <section class="closing">
     <h2>把台灣的月曆放回桌面</h2>
     <div class="hero-cta">
-      <a class="btn btn-lg" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest">免費下載</a>
+      <a class="btn btn-lg" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.zip">
+        免費下載 <span class="btn-version" data-latest-version>1.0</span>
+      </a>
     </div>
-    <div class="meta">macOS 14.0 以上 · 約 2 MB · 已通過 Apple 公證</div>
+    <div class="meta">
+      版本 <span data-latest-version>1.0</span> ·
+      macOS 14.0 以上 · 約 <span data-download-size>2</span> MB ·
+      已通過 Apple 公證
+    </div>
   </section>
 </main>
 
@@ -244,6 +381,8 @@
 </footer>
 
 <script src="calendar.js" defer></script>
+<script src="scroll.js" defer></script>
+<script src="release-info.js" defer></script>
 <script>
   /* 深淺色切換。選擇會記在 localStorage，下次造訪沿用。 */
   document.getElementById('theme-toggle').addEventListener('click', () => {

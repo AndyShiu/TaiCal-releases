@@ -22,7 +22,10 @@
     minimal:   { txt: '#1C1C1E', mut: '#D6D6DA', hol: '#C03A2B', dot: '#1C1C1E',
                  acc: '#1C1C1E', onAcc: '#FFFFFF', lunar: '#A0A0A6' },
     darkPaper: { txt: '#E8E2D6', mut: '#5E5850', hol: '#F2937D', dot: '#E8B48A',
-                 acc: '#C0563F', onAcc: '#FFF3E8', lunar: '#8A8278' }
+                 acc: '#C0563F', onAcc: '#FFF3E8', lunar: '#8A8278' },
+    // 背景圖示意用：與 system 相同，只是 mut 加深。淡灰疊在照片上會糊掉。
+    onPhoto:   { txt: '#2E2E30', mut: '#8B8B90', hol: '#C42B22', dot: '#0A66E8',
+                 acc: '#0A66E8', onAcc: '#FFFFFF', lunar: '#7A7A80' }
   };
 
   // 示意的月份：2026 年 9 月。挑這個月是因為它同時有中秋與教師節兩個假日，
@@ -87,6 +90,10 @@
       if (cell.isToday) {
         el.style.background = p.acc;
         el.style.borderRadius = '8px';
+      } else if (!cell.adjacent && cell.day === options.selected) {
+        // 被點選的日期用描邊，與「今天」的實心圓區分
+        el.style.boxShadow = 'inset 0 0 0 1.5px ' + p.acc;
+        el.style.borderRadius = '8px';
       }
 
       const num = document.createElement('span');
@@ -147,24 +154,38 @@
     return (name === 'ricePaper' && isDark) ? 'darkPaper' : name;
   }
 
+  /** 依容器目前的 data 屬性重新產生它的月曆。 */
+  function renderHost(host) {
+    const palette = resolvePalette(host.dataset.calendar);
+    const height = parseFloat(host.dataset.cellHeight || '26');
+    const fontSize = parseFloat(host.dataset.fontSize || '13');
+    const lunar = host.dataset.lunar === 'true';
+    const selected = parseInt(host.dataset.selected || '', 10) || 0;
+
+    host.replaceChildren();
+    if (host.dataset.weekdays !== 'false') {
+      host.appendChild(renderWeekdays(palette, Math.max(8, fontSize - 4)));
+    }
+    host.appendChild(renderGrid(palette, { height, fontSize, lunar, selected }));
+  }
+
   /** 重新產生頁面上所有的月曆。切換深淺色時需要重跑。 */
   function renderAll() {
-    document.querySelectorAll('[data-calendar]').forEach(host => {
-      const palette = resolvePalette(host.dataset.calendar);
-      const height = parseFloat(host.dataset.cellHeight || '26');
-      const fontSize = parseFloat(host.dataset.fontSize || '13');
-      const lunar = host.dataset.lunar === 'true';
-
-      host.replaceChildren();
-      if (host.dataset.weekdays !== 'false') {
-        host.appendChild(renderWeekdays(palette, Math.max(8, fontSize - 4)));
-      }
-      host.appendChild(renderGrid(palette, { height, fontSize, lunar }));
-    });
+    document.querySelectorAll('[data-calendar]').forEach(renderHost);
   }
 
   renderAll();
 
-  // 供切換按鈕在改變主題後呼叫
+  // 供深淺色切換與滾動效果呼叫
+  window.taical = {
+    renderAll,
+    renderHost,
+    /** 換掉某個容器的配色並立即重繪。 */
+    setPalette(host, name) {
+      host.dataset.calendar = name;
+      renderHost(host);
+    }
+  };
+  // 相容既有的切換按鈕
   window.__taicalRenderCalendars = renderAll;
 })();
