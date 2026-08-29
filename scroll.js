@@ -154,3 +154,18 @@
     document.hidden ? stop() : (demo.getBoundingClientRect().top < window.innerHeight && start());
   });
 })();
+
+/* ---------- 固定導覽列的分隔線 ----------
+ *
+ * 頁面停在最上面時不畫線，捲下去之後才畫。用哨兵元素判斷，
+ * 比監聽 scroll 事件省事，也不必節流。
+ */
+(function () {
+  const bar = document.querySelector('.nav-bar');
+  const sentinel = document.querySelector('.nav-sentinel');
+  if (!bar || !sentinel || !('IntersectionObserver' in window)) return;
+
+  new IntersectionObserver(entries => {
+    bar.classList.toggle('is-stuck', !entries[0].isIntersecting);
+  }, { threshold: 0 }).observe(sentinel);
+})();

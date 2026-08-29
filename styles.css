@@ -23,6 +23,8 @@
   --shadow: rgba(40, 32, 20, .18);
   --widget-bg: #F8F1DF;      /* 小工具示意的底色 */
   --stage: linear-gradient(145deg, #EAD9C2, #D6DDE8);  /* 小工具後方的示意桌布 */
+  --panel-edge: rgba(40, 32, 20, .3);  /* 面板示意裡的色塊與核取方塊描邊 */
+  --nav-bg: rgba(250, 248, 242, .82);  /* 固定導覽列的底，半透明讓內容從底下透出來 */
 }
 
 /* 深色由 data-theme 屬性控制，預設為淺色。
@@ -45,6 +47,8 @@
     --shadow: rgba(0, 0, 0, .45);
     --widget-bg: #232120;
     --stage: linear-gradient(145deg, #4A4034, #2E3542);
+    --panel-edge: rgba(255, 255, 255, .32);
+    --nav-bg: rgba(35, 32, 28, .84);
 }
 
 /* ---------- 基礎 ---------- */
@@ -79,6 +83,32 @@ p { text-wrap: pretty; }
 .tear { height: 8px; background: var(--brick); }
 
 /* ---------- 導覽列 ---------- */
+
+/* 導覽列固定在頂端。
+ *
+ * 外層負責全寬的底與陰影，內層維持與內容相同的最大寬度——
+ * 讓 .nav 自己 sticky 的話，寬螢幕上背景只會蓋住中間 1200px。
+ *
+ * 分隔線只在捲離頁首後才出現：停在最上面時，導覽列與 hero 同色，
+ * 一條線反而是多的。狀態由 scroll.js 觀察哨兵元素後掛上 is-stuck。
+ */
+.nav-bar {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: saturate(1.6) blur(12px);
+  backdrop-filter: saturate(1.6) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.nav-bar.is-stuck {
+  border-bottom-color: var(--line);
+  box-shadow: 0 6px 20px rgba(40, 32, 20, .06);
+}
+/* 位置參照用，本身不佔空間 */
+.nav-sentinel { display: block; height: 1px; margin-bottom: -1px; }
+
+/* 錨點連結捲過去時，標題不能被固定的導覽列蓋住 */
+[id] { scroll-margin-top: 82px; }
 
 .nav {
   display: flex; justify-content: space-between; align-items: center;
@@ -232,45 +262,45 @@ p { text-wrap: pretty; }
  */
 .prefs {
   flex: 1 1 240px; min-width: 0; max-width: 300px;
-  align-self: stretch;
-  background: #1F1F21; border-radius: 12px; padding: 12px 13px 14px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, .07), 0 10px 26px rgba(40, 26, 12, .18);
+  background: var(--paper-raised); border: 1px solid var(--line);
+  border-radius: 14px; padding: 13px 14px 15px;
+  box-shadow: 0 8px 20px rgba(40, 32, 20, .06);
   font-size: 11.5px; line-height: 1.4;
 }
-.prefs-title { color: rgba(255, 255, 255, .58); margin-bottom: 9px; font-size: 11px; }
+.prefs-title { color: var(--ink-faint); margin-bottom: 9px; font-size: 11px; }
 .prefs-row {
   display: flex; align-items: center; gap: 8px;
-  padding: 6px 0; border-top: 1px solid rgba(255, 255, 255, .07);
+  padding: 6px 0; border-top: 1px solid var(--line);
 }
 .prefs-row:first-of-type { border-top: 0; }
-.prefs-label { color: #E8E8EA; white-space: nowrap; }
+.prefs-label { color: var(--ink); white-space: nowrap; }
 .prefs-code {
-  margin-left: auto; color: rgba(255, 255, 255, .45);
+  margin-left: auto; color: var(--ink-faint);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
 }
 .prefs-swatch {
   width: 34px; height: 15px; border-radius: 8px; flex: none;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, .22) inset;
+  box-shadow: 0 0 0 1px var(--panel-edge) inset;
 }
 /* 滑桿：軌道 + 已填滿的部分 + 圓鈕，對應 App 裡的不透明度 */
-.prefs-row-slider .prefs-label { color: rgba(255, 255, 255, .72); }
+.prefs-row-slider .prefs-label { color: var(--ink-soft); }
 .prefs-track {
   position: relative; flex: 1 1 auto; height: 3px; border-radius: 99px;
-  background: rgba(255, 255, 255, .18); margin-left: 4px;
+  background: var(--line); margin-left: 4px;
 }
-.prefs-fill { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: #0A66E8; }
+.prefs-fill { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: var(--brick); }
 .prefs-knob {
   position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%;
-  background: #C8C8CC; transform: translate(-50%, -50%);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+  background: #FFFFFF; transform: translate(-50%, -50%);
+  box-shadow: 0 1px 3px rgba(40, 32, 20, .32), 0 0 0 .5px rgba(40, 32, 20, .16);
 }
 .prefs-pct {
   flex: none; width: 30px; text-align: right; font-style: normal;
-  color: rgba(255, 255, 255, .55);
+  color: var(--ink-faint);
 }
 
 .showcase {
-  display: flex; align-items: center; gap: 26px;
+  display: flex; align-items: center; gap: 40px;
   margin-top: 24px; flex-wrap: wrap;
 }
 .showcase-widget {
@@ -335,28 +365,29 @@ p { text-wrap: pretty; }
 .cal-demo-widget { width: 320px; flex: none; }
 .sources {
   flex: 1 1 250px; min-width: 0; max-width: 300px;
-  background: #1F1F21; border-radius: 12px; padding: 12px 13px 10px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, .07), 0 10px 26px rgba(40, 26, 12, .18);
+  background: var(--paper-raised); border: 1px solid var(--line);
+  border-radius: 14px; padding: 13px 14px 11px;
+  box-shadow: 0 8px 20px rgba(40, 32, 20, .06);
   font-size: 11.5px; line-height: 1.4;
 }
-.sources-title { color: rgba(255, 255, 255, .58); margin-bottom: 8px; font-size: 11px; }
+.sources-title { color: var(--ink-faint); margin-bottom: 8px; font-size: 11px; }
 .src {
   display: flex; align-items: center; gap: 8px;
-  padding: 7px 0; border-top: 1px solid rgba(255, 255, 255, .07);
+  padding: 7px 0; border-top: 1px solid var(--line);
 }
 .src:first-of-type { border-top: 0; }
 .src-box {
   width: 14px; height: 14px; border-radius: 4px; flex: none;
   display: flex; align-items: center; justify-content: center;
-  font-size: 9px; color: #FFFFFF; line-height: 1;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, .28) inset;
+  font-size: 9px; color: var(--on-brick); line-height: 1;
+  box-shadow: 0 0 0 1px var(--panel-edge) inset;
 }
-.src.is-on .src-box { background: #0A66E8; box-shadow: none; }
+.src.is-on .src-box { background: var(--brick); box-shadow: none; }
 .src-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-.src-name { color: rgba(255, 255, 255, .45); }
-.src.is-on .src-name { color: #E8E8EA; }
+.src-name { color: var(--ink-faint); }
+.src.is-on .src-name { color: var(--ink); }
 .src-kind {
-  margin-left: auto; color: rgba(255, 255, 255, .34); font-size: 10.5px;
+  margin-left: auto; color: var(--ink-faint); opacity: .8; font-size: 10.5px;
   white-space: nowrap;
 }
 
@@ -420,6 +451,9 @@ p { text-wrap: pretty; }
 .wallpaper-widget > [data-calendar] { position: relative; z-index: 1; }
 .wallpaper-widget .widget-side { border-left-color: rgba(60, 50, 40, .18); }
 
+
+.lunar-widget { width: 360px; }
+.lunar-side { width: 112px; }
 
 /* 農曆區塊 */
 .lunar-band {
@@ -519,6 +553,13 @@ p { text-wrap: pretty; }
   .feature p { font-size: 15px; }
 
   .lunar-band { margin: 44px auto 0; width: calc(100% - 40px); }
+  /* 示意用的小工具在手機上一律可縮，寫死的寬度會撐破版面 */
+  .lunar-widget { width: 100%; max-width: 360px; }
+  .lunar-side { width: 92px; }
+  .cal-demo-widget { width: 100%; max-width: 320px; }
+  .wallpaper-md { width: 100%; max-width: 330px; }
+  /* 負 margin 的錯落擺法在窄螢幕會把小工具推出左邊界，改成靠左 */
+  .wallpaper-sm { width: 140px; margin-left: 0; align-self: flex-start; }
   .showcase { gap: 20px; }
   .showcase-labels { flex-direction: row; flex-wrap: wrap; }
   .prefs, .sources { max-width: none; flex-basis: 100%; }
