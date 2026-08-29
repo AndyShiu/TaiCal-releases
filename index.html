@@ -12,7 +12,13 @@
 <link rel="canonical" href="https://taical.andyshiu.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#C24A3B">
-<link rel="icon" href="assets/icon-256.png">
+<!-- Google 要求搜尋結果的圖示必須是 48px 的倍數，原本給的 256x256 不符合，
+     結果搜尋結果只顯示預設的地球圖示。同時在根目錄放一份 favicon.ico——
+     Google 與舊瀏覽器會直接請求那個路徑，不看 HTML 裡的宣告。 -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/icon-48.png">
 <link rel="apple-touch-icon" href="assets/icon.png">
 <link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://api.github.com">
