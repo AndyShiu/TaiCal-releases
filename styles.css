@@ -138,6 +138,17 @@ p { text-wrap: pretty; }
   font-variant-numeric: tabular-nums; margin-left: 2px;
 }
 
+/* 下載說明旁的次要出口。
+ *
+ * 需要 zip 的是自動化部署或 MDM 的情境，那些人找得到就好；
+ * 一般使用者的正確答案永遠是 dmg，不該用選單去問他們。 */
+.meta-alt {
+  display: block; margin-top: 8px;
+  font-size: 12.5px; color: var(--ink-faint);
+  text-decoration-color: color-mix(in srgb, var(--ink-faint) 40%, transparent);
+}
+.meta-alt:hover { color: var(--ink-soft); }
+
 /* 深淺色切換 */
 .theme-toggle {
   display: inline-flex; align-items: center; justify-content: center;
