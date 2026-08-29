@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="#FAFAF8"></rect>
+  <path d="M100 286 C100 183 183 100 286 100 L738 100 C841 100 924 183 924 286 L924 330 L867 320 L808 342 L749 324 L690 342 L631 322 L572 344 L513 322 L454 342 L395 324 L336 344 L277 322 L218 342 L159 320 L100 338 Z" fill="#DB6B60"></path>
+  <circle cx="366" cy="208" r="32" fill="#FAFAF8"></circle>
+  <circle cx="658" cy="208" r="32" fill="#FAFAF8"></circle>
+  <g transform="translate(78,161) scale(0.9)" opacity="0.13"><path d="M472 268 C486 252 508 244 528 248 C552 252 572 256 590 268 C608 280 618 296 614 318 C608 360 608 396 602 434 C594 490 582 534 564 576 C548 614 536 638 522 662 C508 686 498 708 490 730 C484 750 474 766 460 774 C446 776 436 764 430 748 C422 726 412 706 402 686 C390 660 376 636 366 610 C356 586 350 564 348 540 C346 514 348 492 352 470 C358 440 374 416 396 394 C414 374 428 350 442 326 C452 306 462 284 472 268 Z" fill="#DB6B60"></path></g>
+  <text x="512" y="740" font-size="400" font-weight="800" letter-spacing="-14" font-family="'SF Pro Rounded', 'Arial Rounded MT Bold', 'Helvetica Neue', sans-serif" text-anchor="middle" fill="#4B5AA9">10</text>
+  <text x="176" y="560" font-size="66" font-weight="700" font-family="'SF Pro Rounded', 'PingFang TC', 'Helvetica Neue', sans-serif" text-anchor="middle" fill="#4B5AA9" opacity="0.4" transform="rotate(-90 176 560)">2026</text>
+  <text x="794" y="472" font-size="76" font-weight="700" font-family="'PingFang TC', 'Noto Sans TC', sans-serif" text-anchor="middle" fill="#DB6B60" opacity="0.45">10月</text>
+  <text x="512" y="872" font-size="84" font-weight="700" font-family="'PingFang TC', 'Noto Sans TC', sans-serif" text-anchor="middle" fill="#DB6B60" opacity="0.5">星期六</text>
+</svg>

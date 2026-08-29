@@ -1,0 +1,96 @@
+# 官網
+
+`https://andyshiu.github.io/TaiCal-releases/` 的原始碼（預定）。
+
+純靜態網站，沒有建置步驟——直接開 `index.html` 即可預覽。
+
+```
+web/
+├── index.html      單頁內容
+├── styles.css      樣式，深淺色以 CSS 變數切換
+├── calendar.js     產生示意用的月曆格線
+└── assets/         App 圖示
+```
+
+## 設計來源
+
+由 Claude Design 產出（專案檔 `TaiCal 官網.dc.html`），採用主方案
+「日曆紙」——磚紅配米白，帶撕頁日曆的紙感，沿用 App 圖示的品牌色。
+
+設計簡報見 [`../docs/DESIGN-BRIEF-website.md`](../docs/DESIGN-BRIEF-website.md)。
+
+## 月曆格線為什麼用 JS 產生
+
+頁面上有七處月曆示意（主視覺兩個、農曆區一個、配色預設集五個），
+每個都是 40 格。寫死會是上千行重複的 HTML，改一個顏色要動七處。
+`calendar.js` 以六組色票產生，改配色只需改色票。
+
+它是純粹的裝飾——JS 未執行時頁面的文字與下載連結完全不受影響。
+
+## 預覽
+
+```bash
+open web/index.html
+```
+
+或起一個本機伺服器：
+
+```bash
+python3 -m http.server 8000 --directory web
+```
+
+## 深淺色
+
+**預設淺色**，不跟隨系統——網站的視覺主體是帶紙感的淺色設計，
+深色是使用者主動選擇的選項。導覽列有切換按鈕，選擇記在 `localStorage`。
+
+實作上有三個地方需要配合：
+
+- `<html data-theme>` 控制配色，深色的變數定義在 `[data-theme="dark"]`
+- `<head>` 內有一小段行內 script，在樣式套用前就讀取已儲存的選擇，
+  避免載入時先閃一下淺色再跳深色
+- 月曆格線的顏色由 `calendar.js` 給，切換後必須重新產生，
+  否則背景變深了、格線文字卻還是深棕色
+
+## 部署到 GitHub Pages
+
+網站與安裝檔在同一個 repo（`AndyShiu/TaiCal-releases`），有兩種做法：
+
+**做法一：把 `web/` 的內容推到該 repo 的根目錄或 `docs/`**
+在 repo 的 Settings → Pages 選擇來源分支與目錄即可。
+
+**做法二：推到 `gh-pages` 分支**
+適合想讓網站原始碼與安裝檔分開的情況。
+
+網址會是 `https://andyshiu.github.io/TaiCal-releases/`。
+
+### 自訂網域
+
+網站使用 `taical.andyshiu.com`，網域在 Cloudflare 管理。
+
+**DNS 設定**（Cloudflare 面板）
+
+| 欄位 | 值 |
+|---|---|
+| Type | `CNAME` |
+| Name | `taical` |
+| Target | `andyshiu.github.io` |
+| Proxy status | **DNS only**（灰色雲） |
+
+> **Proxy 必須關閉。** 維持 Proxied（橘色雲）的話，GitHub 無法完成網域驗證，
+> HTTPS 憑證會申請失敗；或是形成 Cloudflare 與 GitHub 雙層 CDN，
+> 產生重新導向迴圈。
+
+Target 是 `andyshiu.github.io`，不含 repo 名稱、不含 `https://`。
+
+**GitHub 設定**
+
+repo Settings → Pages → Custom domain 填 `taical.andyshiu.com`，
+驗證通過後勾選 **Enforce HTTPS**（憑證由 GitHub 自動申請，免費）。
+
+憑證簽發通常幾分鐘內完成，偶爾需要等到一小時。
+
+**`CNAME` 檔案**
+
+`web/CNAME` 的內容就是網域本身。GitHub Pages 靠它記住自訂網域——
+少了這個檔案，每次部署都會把 Settings 裡的設定重置掉。

@@ -1,0 +1,318 @@
+/* 呆丸月曆 官網
+ *
+ * 配色沿用 App 圖示的品牌色：磚紅 × 米白，帶撕頁日曆的紙感。
+ * 深淺色以 CSS 變數切換，跟隨系統設定。
+ */
+
+/* ---------- 色彩 ---------- */
+
+:root {
+  --brick: #C24A3B;          /* 主色。頁眉、按鈕、強調 */
+  --brick-soft: #C0563F;
+  --indigo: #4B5AA9;         /* 次要色。連結 */
+  --paper: #FAF8F2;          /* 底色 */
+  --paper-raised: #FFFDF7;   /* 卡片 */
+  --paper-sunken: #F3EEE3;   /* 分區 */
+  --ink: #26241F;            /* 主要文字 */
+  --ink-soft: #5C564C;       /* 次要文字 */
+  --ink-faint: #8B8478;      /* 說明文字 */
+  --line: #E7E1D3;
+  --chip-warm: #F6E8DD;
+  --chip-plain: #F1ECDF;
+  --on-brick: #FFF7EF;
+  --shadow: rgba(40, 32, 20, .18);
+  --widget-bg: #F8F1DF;      /* 小工具示意的底色 */
+  --stage: linear-gradient(145deg, #EAD9C2, #D6DDE8);  /* 小工具後方的示意桌布 */
+}
+
+/* 深色由 data-theme 屬性控制，預設為淺色。
+   不使用 prefers-color-scheme 自動切換——這個網站的視覺主體是
+   帶紙感的淺色設計，深色是使用者主動選擇的選項。 */
+[data-theme="dark"] {
+    --brick: #CE5A44;
+    --brick-soft: #DD8A70;
+    --indigo: #9AA6E0;
+    --paper: #23201C;
+    --paper-raised: #2A2723;
+    --paper-sunken: #1E1B18;
+    --ink: #EFE9DC;
+    --ink-soft: #C6BDAE;
+    --ink-faint: #8C8375;
+    --line: #3A352E;
+    --chip-warm: #3A2A24;
+    --chip-plain: #302C26;
+    --on-brick: #FFF5EE;
+    --shadow: rgba(0, 0, 0, .45);
+    --widget-bg: #232120;
+    --stage: linear-gradient(145deg, #4A4034, #2E3542);
+}
+
+/* ---------- 基礎 ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  /* 只轉場背景。文字若也加轉場，切換瞬間會出現深底配淺字的中間狀態，
+     反而比直接換色更顯眼。 */
+  transition: background-color .2s ease;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+               "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+
+a { color: var(--indigo); text-decoration: none; }
+a:hover { color: var(--brick-soft); text-decoration: underline; }
+
+h1, h2, h3, h4 { line-height: 1.35; text-wrap: balance; }
+p { text-wrap: pretty; }
+
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+/* 頁面頂端的一條磚紅，呼應日曆的紅色頁眉 */
+.tear { height: 8px; background: var(--brick); }
+
+/* ---------- 導覽列 ---------- */
+
+.nav {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; padding: 18px 24px; max-width: 1200px; margin: 0 auto;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+.nav-brand img { width: 28px; height: 28px; }
+.nav-links { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+.nav-links a { color: var(--ink-soft); }
+.nav-links a.gh { color: var(--indigo); }
+
+.btn {
+  display: inline-block; background: var(--brick); color: var(--on-brick);
+  padding: 8px 18px; border-radius: 10px; font-weight: 700;
+}
+.btn:hover { color: var(--on-brick); text-decoration: none; filter: brightness(1.06); }
+
+.btn-lg {
+  padding: 15px 40px; border-radius: 13px; font-size: 17px; font-weight: 800;
+  box-shadow: 0 8px 20px rgba(194, 74, 59, .3);
+}
+
+/* 深淺色切換 */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; padding: 0;
+  background: transparent; border: 1px solid var(--line); border-radius: 9px;
+  color: var(--ink-soft); cursor: pointer; font-size: 15px; line-height: 1;
+  transition: border-color .15s, color .15s;
+}
+.theme-toggle:hover { border-color: var(--brick); color: var(--brick); }
+.theme-toggle:focus-visible { outline: 2px solid var(--brick); outline-offset: 2px; }
+/* 兩個圖示只顯示對應目前模式的那一個 */
+.theme-toggle .icon-dark { display: none; }
+[data-theme="dark"] .theme-toggle .icon-light { display: none; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+
+/* ---------- 主視覺 ---------- */
+
+.hero { padding: 64px 24px 0; text-align: center; }
+.hero-eyebrow {
+  font-size: 13px; letter-spacing: .16em; color: var(--brick-soft); font-weight: 700;
+}
+.hero h1 { font-size: 58px; margin: 14px 0 0; letter-spacing: .02em; font-weight: 800; }
+.hero-lead {
+  font-size: 20px; color: var(--ink-soft); margin: 18px auto 0;
+  max-width: 580px; line-height: 1.75;
+}
+.hero-sub {
+  font-size: 15px; color: var(--ink-faint); margin: 12px auto 0;
+  max-width: 520px;
+}
+.hero-cta { margin-top: 30px; }
+.meta { margin-top: 14px; font-size: 13px; color: var(--ink-faint); }
+
+/* 小工具展示台。背景是示意的桌布，讓半透明的小工具有東西可以襯 */
+.stage {
+  margin: 44px auto 0; max-width: 900px; background: var(--stage);
+  border-radius: 24px 24px 0 0; padding: 52px 24px 56px;
+  display: flex; justify-content: center; align-items: center;
+  gap: 30px; flex-wrap: wrap;
+}
+
+/* ---------- 小工具示意 ---------- */
+
+.widget {
+  background: var(--widget-bg); border-radius: 18px;
+  box-shadow: 0 20px 44px rgba(50, 30, 10, .28);
+  padding: 11px 13px 9px; text-align: left;
+}
+.widget-md { width: 352px; display: flex; gap: 12px; }
+.widget-sm { width: 174px; border-radius: 16px; padding: 10px 11px 8px; }
+
+.widget-head {
+  display: flex; align-items: center; gap: 8px; padding: 1px 3px 3px;
+  font-size: 13px;
+}
+.widget-head .arrow { color: #CDBFA4; font-size: 12px; }
+.widget-head .month { flex: 1; text-align: center; color: #B0492F; font-weight: 700; }
+.widget-head .today { color: #B0492F; font-size: 11px; font-weight: 600; }
+
+.widget-main { flex: 1.2; min-width: 0; }
+.widget-side {
+  width: 116px; flex: none; padding: 4px 0 0 12px;
+  border-left: 1px solid rgba(107, 88, 68, .14);
+}
+.widget-side-title { font-size: 11px; font-weight: 700; color: #8F7D63; }
+.widget-side-list { margin-top: 9px; display: grid; gap: 7px; }
+.widget-side-list div { font-size: 10.5px; line-height: 1.4; }
+.widget-side-list .date { color: #C03A2B; font-weight: 700; }
+.widget-side-list .name { color: #6B5844; font-weight: 600; }
+
+[data-theme="dark"] .widget-head .arrow { color: #6C665E; }
+[data-theme="dark"] .widget-head .month,
+[data-theme="dark"] .widget-head .today { color: #E8B48A; }
+[data-theme="dark"] .widget-side { border-left-color: rgba(230, 224, 214, .12); }
+[data-theme="dark"] .widget-side-title { color: #8F887E; }
+[data-theme="dark"] .widget-side-list .date { color: #F2937D; }
+[data-theme="dark"] .widget-side-list .name { color: #E6E0D6; }
+
+/* 月曆格線（由 calendar.js 填入） */
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cal-weekdays { padding-bottom: 2px; }
+.cal-weekdays span { text-align: center; font-weight: 700; }
+.cal-cell {
+  position: relative; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1;
+}
+.cal-lunar { line-height: 1; margin-top: 2px; font-weight: 500; }
+.cal-dot {
+  position: absolute; bottom: 1px; left: 50%; margin-left: -2px;
+  width: 4px; height: 4px; border-radius: 50%; opacity: .9;
+}
+
+/* ---------- 功能區塊 ---------- */
+
+.features { padding: 72px 24px 8px; display: grid; gap: 60px; }
+.feature { display: grid; grid-template-columns: 52px 1fr; gap: 24px; align-items: start; }
+.feature-num {
+  width: 44px; height: 44px; background: var(--brick); color: var(--on-brick);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 20px;
+}
+.feature h3 { margin: 6px 0 0; font-size: 24px; font-weight: 800; }
+.feature p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); max-width: 640px; }
+
+.chips { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.chip {
+  font-size: 13px; padding: 6px 14px; border-radius: 999px;
+  background: var(--chip-plain); color: var(--ink-soft);
+}
+.chip-warm { background: var(--chip-warm); color: var(--brick-soft); font-weight: 700; }
+
+/* 配色預設集 */
+.presets { display: flex; gap: 22px; margin-top: 22px; align-items: flex-start; flex-wrap: wrap; }
+.preset { text-align: center; }
+.preset-frame {
+  width: 120px; border-radius: 12px; padding: 7px 6px 5px;
+  box-shadow: 0 8px 20px rgba(40, 32, 20, .12);
+}
+.preset-label { font-size: 12px; color: var(--ink-faint); margin-top: 8px; font-weight: 600; }
+.preset-system   { background: #FFFFFF; }
+.preset-graphite { background: #232120; }
+.preset-ricePaper{ background: #F8F1DF; }
+.preset-minimal  { background: #FFFFFF; border: 1px solid #E3E0D8; }
+.preset-frosted-outer {
+  width: 132px; background: linear-gradient(135deg, #8FA6BE, #63798F);
+  border-radius: 14px; padding: 6px;
+}
+.preset-frosted-inner {
+  background: rgba(255, 255, 255, .24); backdrop-filter: blur(6px);
+  border-radius: 10px; padding: 6px 5px 4px;
+}
+
+/* 農曆區塊 */
+.lunar-band {
+  margin: 72px 24px 0; background: var(--paper-sunken); border-radius: 22px;
+  padding: 44px 52px; display: grid; grid-template-columns: 1fr 380px;
+  gap: 44px; align-items: center; max-width: 980px;
+}
+.lunar-band h3 { margin: 0; font-size: 24px; font-weight: 800; }
+.lunar-band p { margin: 12px 0 0; font-size: 16px; line-height: 1.85; color: var(--ink-soft); }
+
+/* 三欄卡片 */
+.cards {
+  padding: 32px 24px 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.card {
+  background: var(--paper-raised); border: 1px solid var(--line);
+  border-radius: 16px; padding: 26px;
+}
+.card h4 { margin: 0; font-size: 17px; font-weight: 800; }
+.card p { margin: 10px 0 0; font-size: 14px; line-height: 1.8; color: var(--ink-soft); }
+
+/* ---------- 安裝 ---------- */
+
+.install { margin-top: 72px; background: var(--paper-sunken); padding: 60px 24px 64px; }
+.install h2 { margin: 0; font-size: 30px; font-weight: 800; text-align: center; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 36px; }
+.step { background: var(--paper-raised); border-radius: 16px; padding: 22px; }
+.step-label { color: var(--brick-soft); font-weight: 800; font-size: 13px; letter-spacing: .1em; }
+.step p { margin: 10px 0 0; font-size: 14.5px; line-height: 1.75; }
+
+/* ---------- 結尾與頁尾 ---------- */
+
+.closing { padding: 76px 24px; text-align: center; }
+.closing h2 { margin: 0; font-size: 32px; font-weight: 800; }
+
+.footer {
+  border-top: 1px solid var(--line); padding: 26px 24px 32px;
+  display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-left { font-size: 13px; color: var(--ink-faint); }
+.footer-right {
+  font-size: 12px; color: var(--ink-faint); max-width: 640px;
+  line-height: 1.7; text-align: right;
+}
+
+/* ---------- 響應式 ---------- */
+
+@media (max-width: 900px) {
+  .lunar-band { grid-template-columns: 1fr; padding: 32px 24px; }
+  .cards { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .nav { padding: 14px 20px; }
+  .nav-links { gap: 14px; font-size: 13px; }
+  /* 手機上導覽的次要連結讓位給下載按鈕 */
+  .nav-links a:not(.btn):not(.gh) { display: none; }
+  .btn { padding: 6px 14px; border-radius: 9px; font-size: 13px; }
+
+  .hero { padding: 36px 20px 0; }
+  .hero h1 { font-size: 36px; }
+  .hero-lead { font-size: 17px; }
+  .hero-sub { font-size: 14px; }
+  .btn-lg { padding: 13px 36px; font-size: 16px; }
+
+  .stage { margin-top: 32px; padding: 32px 16px 36px; border-radius: 0; max-width: none; }
+  /* 小工具維持原始尺寸並置中，縮放會讓字變得難以辨識 */
+  .widget-md { width: 100%; max-width: 352px; }
+
+  .features { padding: 44px 20px 0; gap: 40px; }
+  .feature { grid-template-columns: 40px 1fr; gap: 16px; }
+  .feature-num { width: 34px; height: 34px; font-size: 16px; border-radius: 10px; }
+  .feature h3 { font-size: 20px; }
+  .feature p { font-size: 15px; }
+
+  .lunar-band { margin: 44px 20px 0; }
+  .steps { grid-template-columns: 1fr; }
+  .install { padding: 44px 20px 48px; }
+  .install h2 { font-size: 24px; }
+  .closing { padding: 56px 20px; }
+  .closing h2 { font-size: 24px; }
+  .footer { flex-direction: column; gap: 12px; }
+  .footer-right { text-align: left; }
+}
