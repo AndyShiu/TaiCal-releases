@@ -101,7 +101,7 @@
       <span class="icon-light" aria-hidden="true">☾</span>
       <span class="icon-dark" aria-hidden="true">☀</span>
     </button>
-    <a class="btn" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.dmg">下載</a>
+    <a class="btn" data-download="nav" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.dmg">下載</a>
   </div>
 </nav>
 </div>
@@ -113,7 +113,7 @@
   <p class="hero-sub">macOS 內建的月曆小工具不標台灣國定假日。哪天放假、要不要補班——瞥一眼桌面就知道。</p>
 
   <div class="hero-cta">
-    <a class="btn btn-lg" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.dmg">
+    <a class="btn btn-lg" data-download="hero" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.dmg">
         免費下載 <span class="btn-version" data-latest-version>1.4</span>
       </a>
   </div>
@@ -121,7 +121,7 @@
     版本 <span data-latest-version>1.4</span> ·
     macOS 14.0 以上（Apple 晶片）· 約 <span data-download-size>2.5</span> MB ·
     已通過 Apple 公證，下載後可直接開啟
-    <a class="meta-alt" href="https://github.com/AndyShiu/TaiCal-releases/releases">其他版本與檔案</a>
+    <a class="meta-alt" data-releases="hero" href="https://github.com/AndyShiu/TaiCal-releases/releases">其他版本與檔案</a>
   </div>
 
   <div class="stage">
@@ -418,7 +418,7 @@
   <section class="closing">
     <h2>把台灣的月曆放回桌面</h2>
     <div class="hero-cta">
-      <a class="btn btn-lg" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.dmg">
+      <a class="btn btn-lg" data-download="footer" href="https://github.com/AndyShiu/TaiCal-releases/releases/latest/download/TaiCal.dmg">
         免費下載 <span class="btn-version" data-latest-version>1.4</span>
       </a>
     </div>
@@ -426,7 +426,7 @@
       版本 <span data-latest-version>1.4</span> ·
       macOS 14.0 以上（Apple 晶片）· 約 <span data-download-size>2.5</span> MB ·
       已通過 Apple 公證
-      <a class="meta-alt" href="https://github.com/AndyShiu/TaiCal-releases/releases">其他版本與檔案</a>
+      <a class="meta-alt" data-releases="footer" href="https://github.com/AndyShiu/TaiCal-releases/releases">其他版本與檔案</a>
     </div>
   </section>
 </main>
@@ -443,6 +443,7 @@
 <script src="calendar.js" defer></script>
 <script src="scroll.js" defer></script>
 <script src="release-info.js" defer></script>
+<script src="download-tracking.js" defer></script>
 <script>
   /* 深淺色切換。選擇會記在 localStorage，下次造訪沿用。 */
   document.getElementById('theme-toggle').addEventListener('click', () => {
