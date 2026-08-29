@@ -560,8 +560,12 @@ p { text-wrap: pretty; }
   .wallpaper-md { width: 100%; max-width: 330px; }
   /* 負 margin 的錯落擺法在窄螢幕會把小工具推出左邊界，改成靠左 */
   .wallpaper-sm { width: 140px; margin-left: 0; align-self: flex-start; }
-  .showcase { gap: 20px; }
-  .showcase-labels { flex-direction: row; flex-wrap: wrap; }
+  /* 手機上示意元素換行後預設靠左，在窄欄裡看起來偏一邊，一律置中 */
+  .showcase { gap: 20px; justify-content: center; }
+  .showcase-widget, .cal-demo-widget { margin-left: auto; margin-right: auto; }
+  .showcase-labels { flex-direction: row; flex-wrap: wrap; width: 100%; justify-content: center; }
+  .wallpaper-demo { align-items: center; }
+  .wallpaper-sm { align-self: center; }
   .prefs, .sources { max-width: none; flex-basis: 100%; }
   .wallpaper-band { margin-top: 44px; }
   .steps { grid-template-columns: 1fr; }
