@@ -18,7 +18,9 @@
       const version = (data.tag_name || '').replace(/^v/, '');
       if (!version) return;
 
-      const size = (data.assets || []).find(a => a.name.endsWith('.zip'));
+      // 找 dmg 而不是 zip：頁面上的下載連結指向 dmg，
+      // 顯示的大小要跟使用者實際會下載的檔案一致。
+      const size = (data.assets || []).find(a => a.name.endsWith('.dmg'));
       const mb = size ? (size.size / 1024 / 1024).toFixed(1) : null;
 
       targets.forEach(el => {
