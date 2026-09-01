@@ -466,6 +466,15 @@ p { text-wrap: pretty; }
 .lunar-widget { width: 360px; }
 .lunar-side { width: 112px; }
 
+/* 示意小工具右側標題列的「＋」，呼應真實 UI 上的新增行程按鈕 */
+.side-add {
+  float: right; width: 15px; height: 15px; line-height: 14px;
+  text-align: center; font-size: 10px; border-radius: 4px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, .5);
+  box-shadow: 0 0 0 .6px rgba(60, 50, 40, .3) inset;
+}
+
 /* 農曆區塊 */
 .lunar-band {
   /* 左右 auto：有 max-width 卻用固定的左右邊距，區塊會貼在左側而非置中 */
