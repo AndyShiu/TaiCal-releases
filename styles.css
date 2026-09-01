@@ -166,7 +166,100 @@ p { text-wrap: pretty; }
 
 /* ---------- 主視覺 ---------- */
 
-.hero { padding: 64px 24px 0; text-align: center; }
+.hero {
+  padding: 88px 24px 24px; text-align: center;
+  position: relative; overflow: hidden;
+}
+/* 文字與按鈕要壓在小工具牆之上 */
+.hero > :not(.hero-marquee-clip):not(.hero-veil) { position: relative; z-index: 2; }
+
+/* ---------- 首屏背景的小工具牆 ---------- */
+/* 不旋轉的裁切層：磚在接近上下邊界時自己淡出，
+ * 而不是被 overflow 硬切出一條直線 */
+.hero-marquee-clip {
+  position: absolute; inset: 0;
+  z-index: 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg,
+    transparent 2%, #000 14%, #000 78%, transparent 97%);
+  mask-image: linear-gradient(180deg,
+    transparent 2%, #000 14%, #000 78%, transparent 97%);
+}
+.hero-marquee {
+  position: absolute; top: -34%; bottom: -34%; left: -14%; right: -14%;
+  display: flex; justify-content: center; gap: 26px;
+  transform: rotate(-11deg);
+  opacity: .8;
+}
+/* 欄寬跟著該欄的磚型走：小型欄窄、中型欄寬 */
+.mq-col { flex: none; overflow: hidden; }
+.mq-col.is-sm { width: 178px; }
+.mq-col.is-md { width: 300px; }
+.mq-track {
+  display: flex; flex-direction: column;
+  animation: mq-up var(--mq-dur, 46s) linear infinite;
+  /* 讓瀏覽器把整條軌道先點陣化：牆又旋轉又滾動，
+   * 不提示的話，剛滾進畫面的磚會先空白、畫好才突然出現 */
+  will-change: transform;
+}
+.mq-col.is-down .mq-track { animation-name: mq-down; }
+/* 內容排了兩份，走到一半剛好是第二份的起點，接回去毫無縫隙 */
+@keyframes mq-up   { to   { transform: translateY(-50%); } }
+@keyframes mq-down { from { transform: translateY(-50%); } to { transform: none; } }
+
+.mq-tile {
+  flex: none; margin: 0 auto 22px;
+  box-shadow: 0 10px 26px rgba(40, 32, 20, .15);
+}
+.mq-tile.widget-md { width: 296px; }
+.mq-tile.widget-md .widget-side { width: 88px; padding-left: 9px; }
+.mq-tile .widget-head { margin-bottom: 4px; }
+
+/* 照片背景的磚：照片鋪滿、上壓白遮罩，同真實 App 的呈現 */
+.mq-photo { position: relative; overflow: hidden; background: #EDE7DB; }
+.mq-photo-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+}
+.mq-photo-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255, 255, 255, .6);
+}
+.mq-content { position: relative; z-index: 1; flex: 1; min-width: 0; }
+/* 展示區的並排版型定義在 .widget-md 上，這裡多包了一層 .mq-content
+ * （要壓在照片圖層之上），並排要在這層重新宣告一次 */
+.mq-tile.widget-md .mq-content { display: flex; gap: 12px; }
+.mq-photo .widget-side { border-left-color: rgba(60, 50, 40, .18); }
+
+/* 展示台示範小工具的背景輪播：照片鋪滿、上壓白遮罩，同真實 App */
+.stage .widget.stage-rotates { position: relative; overflow: hidden; }
+.stage .widget.stage-rotates > :not(.stage-photo) { position: relative; z-index: 1; }
+.stage-photo {
+  position: absolute; inset: 0;
+  background-size: cover;
+  opacity: 0; transition: opacity .8s ease;
+}
+.stage-photo.is-on { opacity: 1; }
+.stage-photo::after {
+  content: ''; position: absolute; inset: 0;
+  /* 比牆上的磚壓得更白：這兩個是主角，格線數字要維持清楚 */
+  background: rgba(255, 255, 255, .72);
+}
+
+/* 讓中央的文字區坐在實心的紙面上，小工具牆只從邊緣透出來 */
+.hero-veil {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(68% 74% at 50% 46%,
+      var(--paper) 32%,
+      color-mix(in srgb, var(--paper) 72%, transparent) 58%,
+      transparent 90%),
+    linear-gradient(180deg,
+      var(--paper) 0%, transparent 16%,
+      transparent 88%, var(--paper) 100%);
+}
+/* 深色下牆面再收斂一點，避免深底磚塊糊成一片 */
+:root[data-theme="dark"] .hero-marquee { opacity: .55; }
+:root[data-theme="dark"] .stage-photo::after { background: rgba(20, 18, 16, .6); }
 .hero-eyebrow {
   font-size: 13px; letter-spacing: .16em; color: var(--brick-soft); font-weight: 700;
 }
@@ -185,7 +278,7 @@ p { text-wrap: pretty; }
 /* 小工具展示台。背景是示意的桌布，讓半透明的小工具有東西可以襯 */
 .stage {
   margin: 44px auto 0; max-width: 900px; background: var(--stage);
-  border-radius: 24px 24px 0 0; padding: 52px 24px 56px;
+  border-radius: 24px; padding: 52px 24px 56px;
   display: flex; justify-content: center; align-items: center;
   gap: 30px; flex-wrap: wrap;
 }
@@ -535,6 +628,7 @@ p { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .showcase-frame { transition: none; }
+  .mq-track { animation: none; }
   .widget-photo { transition: none; }
   body { transition: none; }
 }
@@ -550,19 +644,35 @@ p { text-wrap: pretty; }
 }
 
 @media (max-width: 640px) {
+  /* 窄畫面上磚離文字更近：磚稍微收一點，
+   * 白霧集中在中央文字區——牆要看得見，字也要讀得清楚 */
+  .hero-marquee { opacity: .6; }
+  .hero-veil {
+    background:
+      radial-gradient(115% 52% at 50% 42%,
+        var(--paper) 34%,
+        color-mix(in srgb, var(--paper) 72%, transparent) 64%,
+        transparent 92%),
+      linear-gradient(180deg,
+        var(--paper) 0%, transparent 10%,
+        transparent 88%, var(--paper) 100%);
+  }
+
   .nav { padding: 14px 20px; }
   .nav-links { gap: 14px; font-size: 13px; }
   /* 手機上導覽的次要連結讓位給下載按鈕 */
   .nav-links a:not(.btn):not(.gh) { display: none; }
   .btn { padding: 6px 14px; border-radius: 9px; font-size: 13px; }
 
-  .hero { padding: 36px 20px 0; }
+  /* 頂部特地留一段高度給牆露臉：文字段加展示台會佔滿 hero，
+   * 不留的話牆整面被蓋住，手機上等於沒有背景 */
+  .hero { padding: 64px 20px 0; }
   .hero h1 { font-size: 36px; }
   .hero-lead { font-size: 17px; }
   .hero-sub { font-size: 14px; }
   .btn-lg { padding: 13px 36px; font-size: 16px; }
 
-  .stage { margin-top: 32px; padding: 32px 16px 36px; border-radius: 0; max-width: none; }
+  .stage { margin: 32px 16px 0; padding: 32px 16px 36px; border-radius: 20px; max-width: none; }
   /* 小工具維持原始尺寸並置中，縮放會讓字變得難以辨識 */
   .widget-md { width: 100%; max-width: 352px; }
 

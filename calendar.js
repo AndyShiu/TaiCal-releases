@@ -25,7 +25,21 @@
                  acc: '#C0563F', onAcc: '#FFF3E8', lunar: '#8A8278' },
     // 背景圖示意用：與 system 相同，只是 mut 加深。淡灰疊在照片上會糊掉。
     onPhoto:   { txt: '#2E2E30', mut: '#8B8B90', hol: '#C42B22', dot: '#0A66E8',
-                 acc: '#0A66E8', onAcc: '#FFFFFF', lunar: '#7A7A80' }
+                 acc: '#0A66E8', onAcc: '#FFFFFF', lunar: '#7A7A80' },
+    // 照片上用的強調色變體：首屏的牆與展示台輪播逐磚換色，
+    // 展示「主題色可自訂」。文字都是可讀的深色系，只換色相。
+    photoRed:    { txt: '#4A3B33', mut: '#A89A8C', hol: '#C42B22', dot: '#C0563F',
+                   acc: '#C0563F', onAcc: '#FFF9EE', lunar: '#A89A8C' },
+    photoBlue:   { txt: '#2E3A48', mut: '#93A0AE', hol: '#C42B22', dot: '#0A66E8',
+                   acc: '#0A66E8', onAcc: '#FFFFFF', lunar: '#93A0AE' },
+    photoGreen:  { txt: '#2F3E33', mut: '#92A396', hol: '#C42B22', dot: '#2E7D4F',
+                   acc: '#2E7D4F', onAcc: '#FFFFFF', lunar: '#92A396' },
+    photoPurple: { txt: '#3A3344', mut: '#9D95AB', hol: '#C42B22', dot: '#7A4FBF',
+                   acc: '#7A4FBF', onAcc: '#FFFFFF', lunar: '#9D95AB' },
+    photoOrange: { txt: '#44382C', mut: '#AC9C88', hol: '#C42B22', dot: '#D97E29',
+                   acc: '#D97E29', onAcc: '#FFFFFF', lunar: '#AC9C88' },
+    photoTeal:   { txt: '#2C3E40', mut: '#8FA3A5', hol: '#C42B22', dot: '#0F8B8D',
+                   acc: '#0F8B8D', onAcc: '#FFFFFF', lunar: '#8FA3A5' }
   };
 
   // 示意的月份：2026 年 9 月。挑這個月是因為它同時有中秋與教師節兩個假日，
