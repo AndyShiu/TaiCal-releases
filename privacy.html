@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隱私權政策 — 呆丸月曆</title>
+<meta name="description" content="呆丸月曆（macOS、iPhone、iPad）的隱私權政策：App 不蒐集任何個人資料，行事曆與照片只在你的裝置上使用。">
+<link rel="canonical" href="https://taical.andyshiu.com/privacy.html">
+<meta name="theme-color" content="#C24A3B">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="stylesheet" href="styles.css">
+<script>
+  /* 跟首頁同一個主題設定，從首頁點過來不會換色 */
+  try {
+    if (localStorage.getItem('taical-theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+  } catch (e) {}
+</script>
+<style>
+  /* 這一頁只有文字，不需要首頁的版面元件，樣式就地寫，只借用首頁的配色變數 */
+  body { background: var(--paper); color: var(--ink); }
+  .policy { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; line-height: 1.85; }
+  .policy .back { color: var(--indigo); text-decoration: none; font-size: 15px; }
+  .policy h1 { font-size: 32px; margin: 20px 0 4px; }
+  .policy .updated { color: var(--ink-faint); font-size: 14px; margin: 0 0 32px; }
+  .policy h2 { font-size: 20px; margin: 36px 0 8px; color: var(--brick); }
+  .policy p, .policy li { color: var(--ink-soft); font-size: 16px; }
+  .policy ul { padding-left: 1.3em; }
+  .policy a { color: var(--indigo); }
+  .policy strong { color: var(--ink); }
+</style>
+</head>
+<body>
+<main class="policy">
+  <a class="back" href="/">← 回到呆丸月曆</a>
+  <h1>隱私權政策</h1>
+  <p class="updated">最後更新：2026 年 9 月 27 日</p>
+
+  <p>這份政策適用於「呆丸月曆」的 macOS、iPhone 與 iPad 版本（以下稱「本 App」），以及本網站。簡單說：<strong>本 App 不蒐集、不上傳、也不分享你的任何個人資料。</strong></p>
+
+  <h2>行事曆</h2>
+  <p>你授權後，本 App 會讀取裝置上的行事曆，把行程顯示在小工具上；你按「＋」新增行程時，行程會寫進你選擇的行事曆。這些資料只在你的裝置上處理，不會傳送到任何伺服器。不授權也能使用月曆、國定假日與農曆。</p>
+
+  <h2>背景照片</h2>
+  <p>你選的照片會縮小後存在本 App 於裝置上的儲存空間，只用來當作小工具的背景。存檔時會重新編碼，照片裡的拍攝位置等資訊不會被保留。照片不會上傳。在 iPhone 與 iPad 上，選照片使用系統的相簿選取器，本 App 看不到你相簿裡的其他照片。</p>
+
+  <h2>網路連線</h2>
+  <p>本 App 會定期從 GitHub 下載最新的台灣國定假日資料（行政院人事行政總處公告的辦公日曆表）。這只是下載一個公開的資料檔，不會送出任何關於你的資訊。macOS 官網版另外會向 GitHub 檢查是否有新版本。</p>
+
+  <h2>購買</h2>
+  <p>iPhone 與 iPad 版的「進階版」透過 Apple 的 App 內購買完成，付款與帳號資料由 Apple 處理，本 App 取得的只有「是否已購買」這一項結果，用來開啟進階功能。</p>
+
+  <h2>分析與追蹤</h2>
+  <p>本 App 沒有使用任何分析、廣告或追蹤工具，也不會跨 App 或網站追蹤你。</p>
+  <p>本網站（taical.andyshiu.com）使用 Google Analytics 統計造訪人次與下載按鈕的點擊次數，會存取 cookie，不會用於識別個人。這與 App 本身無關。</p>
+
+  <h2>兒童</h2>
+  <p>本 App 不蒐集任何人的個人資料，包括兒童。</p>
+
+  <h2>政策變更</h2>
+  <p>如果本 App 處理資料的方式改變，會更新這一頁並修改上方的日期。</p>
+
+  <h2>聯絡</h2>
+  <p>對這份政策有任何問題，請到 <a href="https://github.com/AndyShiu/TaiCal-releases/issues">GitHub</a> 留言。</p>
+</main>
+</body>
+</html>
