@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW" data-theme="light">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,24 +9,25 @@
 <meta name="theme-color" content="#C24A3B">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/icon.png">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=1790618708">
 <script>
   /* 跟首頁同一個主題設定，從首頁點過來不會換色 */
   try {
-    if (localStorage.getItem('taical-theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+    var t = localStorage.getItem('taical-theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
   } catch (e) {}
 </script>
 <style>
   /* 這一頁只有文字，不需要首頁的版面元件，樣式就地寫，只借用首頁的配色變數 */
-  body { background: var(--paper); color: var(--ink); }
+  body { background: var(--bg); color: var(--ink); }
   .policy { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; line-height: 1.85; }
-  .policy .back { color: var(--indigo); text-decoration: none; font-size: 15px; }
+  .policy .back { color: var(--ind); text-decoration: none; font-size: 15px; }
   .policy h1 { font-size: 32px; margin: 20px 0 4px; }
-  .policy .updated { color: var(--ink-faint); font-size: 14px; margin: 0 0 32px; }
-  .policy h2 { font-size: 20px; margin: 36px 0 8px; color: var(--brick); }
-  .policy p, .policy li { color: var(--ink-soft); font-size: 16px; }
+  .policy .updated { color: var(--ink3); font-size: 14px; margin: 0 0 32px; }
+  .policy h2 { font-size: 20px; margin: 36px 0 8px; color: var(--holText); }
+  .policy p, .policy li { color: var(--ink2); font-size: 16px; }
+  .policy p { margin: 0 0 1em; }
   .policy ul { padding-left: 1.3em; }
-  .policy a { color: var(--indigo); }
+  .policy a { color: var(--ind); }
   .policy strong { color: var(--ink); }
 </style>
 </head>
