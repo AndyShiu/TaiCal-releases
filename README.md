@@ -1,5 +1,7 @@
 # 呆丸月曆
 
+![呆丸月曆：國定假日、補班日與農曆，直接放在桌面與主畫面上](images/banner.png)
+
 台灣人的月曆小工具，**Mac、iPhone、iPad 都能用**。標好台灣國定假日、補班日與農曆，可以直接在小工具上翻月、點日期看行程，還能放上自己的照片當背景。
 
 官網：[taical.andyshiu.com](https://taical.andyshiu.com)
@@ -16,6 +18,8 @@
 ---
 
 ## Mac 版
+
+<p align="center"><img src="images/mac-widget.png" width="440" alt="Mac 桌面上的呆丸月曆小工具"></p>
 
 ### 下載
 
@@ -45,6 +49,12 @@ App 已經過 Apple 公證，下載後可以直接開啟。
 ---
 
 ## iPhone／iPad 版
+
+<p align="center">
+  <img src="images/iphone-home.webp" width="30%" alt="主畫面上的照片月曆小工具">
+  <img src="images/iphone-calendar.webp" width="30%" alt="App 內的月曆與當天詳情">
+  <img src="images/iphone-appearance.webp" width="30%" alt="外觀設定：配色與背景照片">
+</p>
 
 ### 下載
 
