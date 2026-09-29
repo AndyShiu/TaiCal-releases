@@ -17,6 +17,27 @@
     document.querySelectorAll('[data-appstore-link]').forEach(function (a) { a.href = SITE.appStoreUrl; });
   }
 
+  /* ----- Mac 版下載按鈕上的版本號：從 GitHub 抓最新發行版 -----
+   * HTML 裡先寫好發版當下的版本（release.sh 會一併更新），抓不到時就顯示那個。
+   * 同一個分頁只抓一次：GitHub API 未驗證的請求每小時只有 60 次。 */
+  (function () {
+    var slots = document.querySelectorAll('[data-latest-version]');
+    if (!slots.length || !window.fetch) return;
+    function show(v) { slots.forEach(function (el) { el.textContent = v; }); }
+    try {
+      var cached = sessionStorage.getItem('taical-latest-version');
+      if (cached) { show(cached); return; }
+    } catch (e) { /* 存不了就每次抓 */ }
+    fetch('https://api.github.com/repos/AndyShiu/TaiCal-releases/releases/latest', {
+      headers: { 'Accept': 'application/vnd.github+json' }
+    }).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      var v = data && data.tag_name && data.tag_name.replace(/^v/i, '');
+      if (!v || !/^\d+(\.\d+)*$/.test(v)) return;
+      show(v);
+      try { sessionStorage.setItem('taical-latest-version', v); } catch (e) {}
+    }).catch(function () { /* 失敗就留著 HTML 裡的版本 */ });
+  })();
+
   /* ----- 深淺色：預設跟隨系統，按了就記住 ----- */
   var toggle = document.getElementById('theme-toggle');
   if (toggle) {
