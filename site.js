@@ -7,8 +7,8 @@
    * appStoreUrl: App Store 連結，例如 https://apps.apple.com/tw/app/id6816707196
    * 改成 live 前，記得把 Apple 官方徽章放到 assets/v2/app-store-badge.svg。 */
   var SITE = {
-    appStore: 'soon',
-    appStoreUrl: ''
+    appStore: 'live',
+    appStoreUrl: 'https://apps.apple.com/tw/app/id6816707196'
   };
 
   var root = document.documentElement;
