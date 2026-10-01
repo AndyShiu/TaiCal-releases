@@ -12,7 +12,7 @@
 |---|---|---|
 | 形式 | 桌面小工具 | 主畫面小工具＋App |
 | 價格 | 免費，全部功能 | 免費下載；進階版 NT$90 買斷 |
-| 下載 | [本頁下載 dmg](#mac-版) | App Store（即將推出） |
+| 下載 | [本頁下載 dmg](#mac-版) | [App Store](https://apps.apple.com/tw/app/id6816707196) |
 | 需求 | macOS 14.0 以上，Apple 晶片 | iOS／iPadOS 17 以上 |
 
 ---
@@ -58,7 +58,9 @@ App 已經過 Apple 公證，下載後可以直接開啟。
 
 ### 下載
 
-**請到 App Store 下載**（審核中，即將推出）。本頁不提供 iPhone／iPad 的安裝檔。
+[<img src="images/app-store-badge.svg" height="48" alt="在 App Store 下載">](https://apps.apple.com/tw/app/id6816707196)
+
+本頁不提供 iPhone／iPad 的安裝檔，請到 App Store 下載。
 
 ### 安裝
 
